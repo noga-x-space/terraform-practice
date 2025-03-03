@@ -1,13 +1,29 @@
-data "ec2_security_group_id" "ec2_security_group_id" {
-    # get object from s3 bucket state.
+data "terraform_remote_state" "security" {
+  backend = "s3"
+  config = {
+    bucket                  = "terraform-s3-state-noga"
+    key                     = "envs/security/backend.tfstate"  
+    region                  = "us-east-1"
+    profile                 = "sandbox-user"
+  }
 }
+
+data "terraform_remote_state" "network" {
+  backend = "s3"
+  config = {
+    bucket                  = "terraform-s3-state-noga"
+    key                     = "envs/network/backend.tfstate"  
+    region                  = "us-east-1"
+    profile                 = "sandbox-user"
+  }
+}
+
 module "ec2"{
-source = "../../modules/compute"
+source = "../../../modules/compute" 
 
   environment = var.environment
   availability_zones= var.availability_zones
-  public_subnet_ids=module.network.public_subnet_ids
-  # vpc_security_group_ids= [module.security_groups.ec2_security_group_id]
-  vpc_security_group_ids= [data.ec2_security_group_id.ec2_security_group_id]
-}
+  public_subnet_ids=data.terraform_remote_state.network.outputs.public_subnet_ids
+  vpc_security_group_ids = data.terraform_remote_state.security.outputs.ec2_security_group_id
+} 
 
