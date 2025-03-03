@@ -5,12 +5,21 @@ terraform {
       version = "~> 5.0"
     }
   }
+    backend "s3" {
+    bucket                  = "terraform-s3-state-noga"
+    key                     = "backend.tfstate"
+    region                  = "us-east-1"
+    shared_credentials_files = ["~/.aws/credentials"]
+    profile                 = "sandbox-user" 
+    encrypt= true
+    dynamodb_table = "terraform-state-lock-dynamo"
+  }
 }
 
 # Configure the AWS Provider
 provider "aws" {
   region = "us-east-1"
-  profile = "terraform-user"
+  profile = "sandbox-user"
 }
 
 
