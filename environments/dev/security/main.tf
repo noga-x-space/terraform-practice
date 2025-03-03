@@ -2,6 +2,6 @@
 module "security_groups"{
   source= "../../modules/security"
 
-  environment = "dev"
+  environment = var.environment
   vpc_id = module.network.vpc_id
 }
