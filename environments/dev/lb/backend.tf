@@ -4,8 +4,8 @@ terraform {
     key                     = "dev/lb/backend.tfstate"
     region                  = "us-east-1"
     shared_credentials_file = "~/.aws/credentials"
-    profile                 = "sandbox-user" 
-    encrypt= true
-    dynamodb_table = "terraform-state-lock-dynamo"
+    profile                 = "sandbox-user"
+    encrypt                 = true
+    dynamodb_table          = "terraform-state-lock-dynamo"
   }
 }
