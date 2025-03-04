@@ -8,10 +8,6 @@ on:
 #    paths:
 #    - terraform/**
  pull_request:
-   branches:
-   - main
-   paths:
-   - terraform/**
  
 env:
  # verbosity setting for Terraform logs
