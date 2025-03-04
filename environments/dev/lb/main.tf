@@ -2,7 +2,7 @@ data "terraform_remote_state" "security" {
   backend = "s3"
   config = {
     bucket                  = "terraform-s3-state-noga"
-    key                     = "envs/security/backend.tfstate"  
+    key                     = "dev/security/backend.tfstate"  
     region                  = "us-east-1"
     profile                 = "sandbox-user"
   }
@@ -12,7 +12,7 @@ data "terraform_remote_state" "network" {
   backend = "s3"
   config = {
     bucket                  = "terraform-s3-state-noga"
-    key                     = "envs/network/backend.tfstate"  
+    key                     = "dev/network/backend.tfstate"  
     region                  = "us-east-1"
     profile                 = "sandbox-user"
   }
@@ -22,7 +22,7 @@ data "terraform_remote_state" "compute" {
   backend = "s3"
   config = {
     bucket                  = "terraform-s3-state-noga"
-    key                     = "envs/compute/backend.tfstate"  
+    key                     = "dev/compute/backend.tfstate"  
     region                  = "us-east-1"
     profile                 = "sandbox-user"
   }

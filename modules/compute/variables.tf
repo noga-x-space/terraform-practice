@@ -31,6 +31,3 @@ variable "ami_id" {
   default     = "ami-04b4f1a9cf54c11d0"  # Ubuntu AMI
 }
 
-output "instance_ids" {
-  value = aws_instance.web_server[*].id
-}
