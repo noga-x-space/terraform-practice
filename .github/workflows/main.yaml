@@ -5,7 +5,7 @@ on:
 
 jobs:
   network:
-    uses: ./.github/workflows/terraform_actions.yml@test #this is in the test branch
+    uses: ./.github/workflows/terraform_actions.yml
     with:
       directory: environments/dev/network
     secrets:
