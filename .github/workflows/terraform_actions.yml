@@ -62,7 +62,16 @@ jobs:
        env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
- 
+
+        
+      # Only runs on main branch
+     - name: Terraform Apply
+       if: github.ref == 'refs/heads/main'
+       run: terraform apply -auto-approve
+       env:
+         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
     
      - uses: actions/github-script@v6
        env:
