@@ -20,7 +20,7 @@ env:
  
 jobs:
  PR:
-   name: "Terraform Infrastructure Change Management"
+   name: "Terraform Infrastructure"
    runs-on: ubuntu-latest
  
    steps:
