@@ -4,7 +4,7 @@ data "terraform_remote_state" "network" {
     bucket  = "terraform-s3-state-noga"
     key     = "dev/network/backend.tfstate"
     region  = "us-east-1"
-    profile = "sandbox-user"
+#    profile = "sandbox-user"
   }
 }
 
