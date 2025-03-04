@@ -1,6 +1,6 @@
 variable "environment" {
   description = "name of current env"
-  type=string
+  type        = string
 }
 
 variable "availability_zones" {

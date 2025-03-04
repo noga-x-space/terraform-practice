@@ -1,11 +1,11 @@
 
 # EC2 Instances
 resource "aws_instance" "web_server" {
-  count= length(var.availability_zones)
+  count                       = length(var.availability_zones)
   ami                         = var.ami_id
-  instance_type              = var.instance_type
-  subnet_id                  = var.public_subnet_ids[count.index]
-  vpc_security_group_ids     = var.vpc_security_group_ids
+  instance_type               = var.instance_type
+  subnet_id                   = var.public_subnet_ids[count.index]
+  vpc_security_group_ids      = var.vpc_security_group_ids
   associate_public_ip_address = true
   user_data_replace_on_change = true
 

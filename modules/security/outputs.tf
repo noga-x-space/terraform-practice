@@ -1,10 +1,10 @@
-output "ec2_sg_name"{
-    value = aws_security_group.ec2_sg.name
-    description = "security group name"
+output "ec2_sg_name" {
+  value       = aws_security_group.ec2_sg.name
+  description = "security group name"
 }
-output "alb_sg_name"{
-    value = aws_security_group.alb_sg.name
-    description = "security group name"
+output "alb_sg_name" {
+  value       = aws_security_group.alb_sg.name
+  description = "security group name"
 }
 
 output "alb_security_group_id" {

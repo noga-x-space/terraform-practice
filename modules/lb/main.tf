@@ -6,7 +6,7 @@ resource "aws_lb" "web_lb" {
   security_groups    = var.security_group_ids
   subnets            = var.subnet_ids
   tags = {
-    Name = "${var.environment}-web-lb"
+    Name        = "${var.environment}-web-lb"
     Environment = var.environment
   }
 }
@@ -23,12 +23,12 @@ resource "aws_lb_target_group" "web_tg" {
     healthy_threshold   = 2
     interval            = 30
     timeout             = 5
-    path               = "/"
-    port               = "traffic-port"
+    path                = "/"
+    port                = "traffic-port"
     unhealthy_threshold = 2
   }
-    tags = {
-    Name = "${var.environment}-web-tg"
+  tags = {
+    Name        = "${var.environment}-web-tg"
     Environment = var.environment
   }
 }
