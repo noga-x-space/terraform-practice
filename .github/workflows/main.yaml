@@ -13,7 +13,7 @@ jobs:
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
   security:
-    uses: ./.github/workflows/terraform_actions.yml@main
+    uses: ./.github/workflows/terraform_actions.yml
     with:
       directory: environments/dev/security
     secrets:
@@ -21,7 +21,7 @@ jobs:
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
   compute:
-    uses: ./.github/workflows/terraform_actions.yml@main
+    uses: ./.github/workflows/terraform_actions.yml
     with:
       directory: environments/dev/compute
     secrets:
@@ -29,7 +29,7 @@ jobs:
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
   lb:
-    uses: ./.github/workflows/terraform_actions.yml@main
+    uses: ./.github/workflows/terraform_actions.yml
     with:
       directory: environments/dev/lb
     secrets:
