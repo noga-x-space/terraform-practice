@@ -1,3 +1,7 @@
+//// by default, the alb sg isnt created! so it wouldnt work
+/// control through the sg vars !
+
+
 # ALB
 resource "aws_lb" "web_lb" {
   name               = "${var.environment}-web-lb"

@@ -4,7 +4,7 @@ data "terraform_remote_state" "security" {
     bucket = "terraform-s3-state-noga"
     key    = "dev/security/backend.tfstate"
     region = "us-east-1"
-    #    profile = "sandbox-user"
+    #   profile = "sandbox-user"
   }
 }
 
@@ -14,7 +14,7 @@ data "terraform_remote_state" "network" {
     bucket = "terraform-s3-state-noga"
     key    = "dev/network/backend.tfstate"
     region = "us-east-1"
-    #    profile = "sandbox-user"
+    #   profile = "sandbox-user"  
   }
 }
 
@@ -24,6 +24,6 @@ module "ec2" {
   environment            = var.environment
   availability_zones     = var.availability_zones
   public_subnet_ids      = data.terraform_remote_state.network.outputs.public_subnet_ids
-  vpc_security_group_ids = [data.terraform_remote_state.security.outputs.ec2_security_group_id]
+  vpc_security_group_ids = [data.terraform_remote_state.security.outputs.public_ec2_security_group_id]
 }
 
