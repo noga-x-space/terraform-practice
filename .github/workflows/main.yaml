@@ -7,9 +7,9 @@ on:
   push:
     branches:
       - main
-    # paths:
-    #   - 'environments/dev/**'
-    #   - 'modules/**'
+    paths:
+      - 'environments/dev/**'
+      - 'modules/**'
 
 permissions:
   issues: write
@@ -43,11 +43,99 @@ jobs:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
-  lb:
-    needs: compute
+  eks:
+    needs: network
     uses: ./.github/workflows/terraform_actions.yml
     with:
-      directory: environments/dev/lb
+      directory: environments/dev/eks
     secrets:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+  # lb:
+  #   needs: compute
+  #   uses: ./.github/workflows/terraform_actions.yml
+  #   with:
+  #     directory: environments/dev/lb
+  #   secrets:
+  #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+# name: "Terraform CI"
+
+# on: 
+#   pull_request:
+
+# env:
+#   # Shared environment variables
+#   TF_LOG: INFO
+#   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+# jobs:
+#   terraform-plan:
+#     runs-on: ubuntu-latest
+#     strategy:
+#       matrix:
+#         module: ["network", "security", "compute", "lb"]
+    
+#     defaults:
+#       run:
+#         working-directory: ./environments/dev/${{ matrix.module }}
+#     steps:
+#      - name: Checkout the repository to the runner
+#        uses: actions/checkout@v2
+ 
+#      - name: Setup Terraform with specified version on the runner
+#        uses: hashicorp/setup-terraform@v2
+#        with:
+#          terraform_version: 1.5.6
+    
+#      - name: Terraform init
+#        id: init
+#        run: terraform init 
+ 
+#      - name: Terraform format
+#        id: fmt
+#        run: terraform fmt -check
+    
+#      - name: Terraform validate
+#        id: validate
+#        run: terraform validate
+ 
+#      - name: Terraform plan
+#        id: plan
+#        run: terraform plan -no-color -input=false
+#        continue-on-error: true
+    
+#      - uses: actions/github-script@v6
+#        env:
+#          PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
+#        with:
+#          script: |
+#            const output = `#### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
+#            #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
+#            #### Terraform Validation 🤖\`${{ steps.validate.outcome }}\`
+#            #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
+ 
+#            <details><summary>Show Plan</summary>
+ 
+#            \`\`\`\n
+#            ${process.env.PLAN}
+#            \`\`\`
+ 
+#            </details>
+#            *Pushed by: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
+ 
+#            github.rest.issues.createComment({
+#              issue_number: context.issue.number,
+#              owner: context.repo.owner,
+#              repo: context.repo.repo,
+#              body: output
+#            })
+ 
+#      - name: Terraform Plan Status
+#        if: steps.plan.outcome == 'failure'
+#        run: exit 1
+ 
+
