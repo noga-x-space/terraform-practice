@@ -8,10 +8,8 @@ on:
     branches:
       - main
 
-# on:
-#   push:
-#     branches:
-#       - main
+
+
 #     # paths:
 #     #   - 'environments/dev/**'
 #     #   - 'modules/**'
@@ -23,6 +21,9 @@ permissions:
 
 jobs:
   network:
+    concurrency:
+      group: network
+      cancel-in-progress: false 
     uses: ./.github/workflows/terraform_actions.yml
     with:
       directory: environments/dev/network
