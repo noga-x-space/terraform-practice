@@ -57,7 +57,13 @@ jobs:
  
      - name: Terraform plan
        id: plan
-       run: terraform plan -no-color -input=false
+       run:  |
+        echo "AWS REGION: $AWS_DEFAULT_REGION"
+        echo "TF WORKSPACE: $(terraform workspace show)"
+        aws dynamodb scan --table-name terraform-state-lock-dynamo --region us-east-1
+        echo "=== TERRAFORM PLAN EXECUTION ==="
+        terraform plan -no-color -input=false -lock-timeout=20m 
+      # terraform plan -no-color -input=false
        continue-on-error: true
        env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
