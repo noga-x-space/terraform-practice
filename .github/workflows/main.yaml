@@ -32,6 +32,9 @@ jobs:
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
   security:
+    concurrency:
+      group: security
+      cancel-in-progress: false 
     needs: network
     uses: ./.github/workflows/terraform_actions.yml
     with:
@@ -49,14 +52,17 @@ jobs:
   #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
-  # eks:
-  #   needs: security
-  #   uses: ./.github/workflows/terraform_actions.yml
-  #   with:
-  #     directory: environments/dev/eks
-  #   secrets:
-  #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-  #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  eks:
+    concurrency:
+      group: eks
+      cancel-in-progress: false 
+    needs: security
+    uses: ./.github/workflows/terraform_actions.yml
+    with:
+      directory: environments/dev/eks
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
   # lb:
   #   needs: compute
