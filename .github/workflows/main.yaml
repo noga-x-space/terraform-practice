@@ -1,15 +1,17 @@
 name: "Terraform CI"
 
-# on:
-#   pull_request:
-
 on:
-  push:
+  pull_request:
     branches:
       - main
-    paths:
-      - 'environments/dev/**'
-      - 'modules/**'
+
+# on:
+#   push:
+#     branches:
+#       - main
+#     # paths:
+#     #   - 'environments/dev/**'
+#     #   - 'modules/**'
 
 permissions:
   issues: write
